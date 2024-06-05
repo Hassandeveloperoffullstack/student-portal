@@ -19,6 +19,7 @@ class AdminAuthenticate
     {
         If(Auth::check() && Auth::user()->role == "admin")
         {
+            // return redirect()->route('admindashboard');
             return $next($request);            
         }
         elseif (Auth::check() && Auth::user()->role == "customer") {

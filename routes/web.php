@@ -9,6 +9,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Middleware\AdminAuthenticate;
+use App\Http\Middleware\AdminRestrict;
 
 Route::get('/', function () {
     return view('welcome');
@@ -60,25 +61,27 @@ Route::middleware('auth')->group(function () {
         });
     });
 
+    Route::middleware([AdminRestrict::class])->group(function () {
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
 
-    Route::get('/detail/{id}', [ProfileController::class, 'details'])->name('detail');
+        Route::get('/detail/{id}', [ProfileController::class, 'details'])->name('detail');
 
 
-    Route::post('/profile/updateUserImage/{id}', [ProfileController::class, 'updateUserImage'])->name('updateUserImage');
-    Route::post('/SI', [ProfileController::class, 'imageofuser'])->name('SI');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/logout', [ProfileController::class, 'logout'])->name('profile.logout');
+        Route::post('/profile/updateUserImage/{id}', [ProfileController::class, 'updateUserImage'])->name('updateUserImage');
+        Route::post('/SI', [ProfileController::class, 'imageofuser'])->name('SI');
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::get('/logout', [ProfileController::class, 'logout'])->name('profile.logout');
+    });
 });
 
 
-Route::fallback(function () {                         
-    return view('404');               
+Route::fallback(function () {
+    return view('404');
 });
 
 
