@@ -7,49 +7,22 @@ use Spatie\Html\Facades\Html;
 
 class DropdownService
 {
-   
-   
 
-    public static function department_dropdown($id = null)
+    public static function department_dropdown()
     {
-        $department = DB::table('departments')->get();
-        $data = [];
-        foreach ($department as $dept) {
-            $data[$dept->id] = $dept->name;
-        }
-        if (!is_null($id)) {
-            $data = $data[$id];
-        }
+        $data = DB::table('departments')->pluck('name','id');
+
         return $data;
     }
-    public static function class_dropdown(): array
+    public static function class_dropdown()
     {
-        $class = DB::table('grades')->get();
-
-        $data = [];
-        foreach ($class as $dept) {
-            $data[$dept->id] = $dept->name;
-        }
+        $data = DB::table('grades')->pluck('name','id');
         return $data;
     }
-    public static function session_dropdown(): array
+    public static function session_dropdown()
     {
-        $session = DB::table('sessions')->get();
-
-        $data = [];
-        foreach ($session as $dept) {
-            $data[$dept->id] = $dept->name;
-        }
+        $data = DB::table('sessions')->pluck('name','id');
         return $data;
     }
-    public static function subject_dropdown(): array
-    {
-        $subject = DB::table('subjects')->get();
-
-        $data = [];
-        foreach ($subject as $dept) {
-            $data[$dept->id] = $dept->name;
-        }
-        return $data;
-    }
+  
 }

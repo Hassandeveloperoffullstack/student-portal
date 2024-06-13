@@ -14,6 +14,9 @@ use App\Http\Middleware\AdminRestrict;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+Route::get('/q', function () {
+    return view('admin.layout');
+});
 
 
 Route::middleware('auth')->group(function () {
@@ -24,7 +27,7 @@ Route::middleware('auth')->group(function () {
             Route::get('class/create', [GradeController::class, 'create'])->name('class.create');
             Route::post('class/submit', [GradeController::class, 'store'])->name('class.submit');
             Route::get('class/edit/{id}', [GradeController::class, 'edit'])->name('class.edit');
-            Route::post('class/update/{id}', [GradeController::class, 'update'])->name('class.update');
+            Route::put('class/update/{id}', [GradeController::class, 'update'])->name('class.update');
             Route::get('class/delete/{id}', [GradeController::class, 'destroy'])->name('class.delete');
 
             Route::get('department', [DepartmentController::class, 'index'])->name('department.show');
