@@ -1,14 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Requests\SessionRequest;
 use App\Models\Session;
+use Illuminate\Http\Request;
+use DataTables;
+
 class SessionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $session = Session::all();
-        return view('admin/session/index', compact('session'));
+        if ($request->ajax()) {
+            $data = Session::all();
+            return DataTables::of($data)->addIndexColumn()->make(true);
+        }
+        return view('admin/session/index');
     }
     public function create()
     {
@@ -16,7 +23,7 @@ class SessionController extends Controller
     }
     public function store(SessionRequest $request)
     {
-        if($request->createData()){
+        if ($request->createData()) {
             return redirect()->route('session.show')->with('success', 'Session Created Successfully !');
         }
     }
@@ -27,7 +34,7 @@ class SessionController extends Controller
     }
     public function update(SessionRequest $request, string $id)
     {
-        if($request->updatedData($id)){
+        if ($request->updatedData($id)) {
             return redirect()->route('session.show')->with('success', 'Session Updated Successfully !');
         }
     }

@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\SubjectRequest;
 use App\Models\Subject;
+use Illuminate\Http\Request;
+use DataTables;
+
 class SubjectController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $subject = Subject::all();
-        return view('admin/subject/index', compact('subject'));
+        if ($request->ajax()) {
+            $data = Subject::all();
+            return DataTables::of($data)->addIndexColumn()->make(true);
+        }
+        return view('admin/subject/index');
     }
     public function create()
     {

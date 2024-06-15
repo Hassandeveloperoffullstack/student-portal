@@ -10,7 +10,7 @@
             </h5>
         </div>
         <div class="card-body">
-            <table class="table table-bordered text-center">
+            <table class="table table-bordered text-center" id="data_table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -24,24 +24,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($student as $students)
-                        <tr>
-                            <th scope="row">{{ $loop->iteration }}</th>
-                            <td>{{ $students->user->name }}</td>
-                            <td>{{ $students->department->name }}</td>
-                            <td>{{ $students->class->name }}</td>
-                            <td>{{ $students->session->name }}</td>
-                            <td>{{ $students->cnic }}</td>
-                            <td> <img src='{{ asset('storage') }}/{{ $students->image }}' class="rounded-circle"
-                                    width="50px" height=""50px /></td>
-                            <td>
-                                <a href="{{ route('student.single', $students->id) }}"
-                                    class="btn btn-primary text-white rounded-0">More Details</a>
-                            </td>
-                        </tr>
-                    @endforeach
-
-
                 </tbody>
             </table>
         </div>

@@ -1,13 +1,17 @@
 <?php
 namespace App\Http\Controllers;
-use App\Http\Requests\DepartmentRequest;
+use DataTables;
 use App\Models\Department;
+use Illuminate\Http\Request;
 class DepartmentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $department = Department::all();
-        return view('admin/department/index', compact('department'));
+        if ($request->ajax()) {
+            $data = Department::all();
+            return DataTables::of($data)->addIndexColumn()->make(true);
+        }
+        return view('admin/department/index');
     }
     public function create()
     {

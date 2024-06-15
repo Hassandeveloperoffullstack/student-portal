@@ -10,7 +10,7 @@
             </h5>
         </div>
         <div class="card-body">
-            <table class="table table-bordered text-center">
+            <table class="table table-bordered text-center" id="sub_table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -19,20 +19,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($subject as $subjects)
-                        <tr>
-                            <th scope="row">{{ $loop->iteration }}</th>
-                            <td>{{ $subjects->name }}</td>
-                            <td>
-                                <a href="{{ route('subject.edit', $subjects->id) }}"
-                                    class="btn btn-warning text-white rounded-0">Update</a>
-                                <a href="{{ url('admin/subject/delete', $subjects->id) }}"
-                                    class="btn btn-danger rounded-0">Delete</a>
-                            </td>
-                        </tr>
-                    @endforeach
-
-
                 </tbody>
             </table>
         </div>

@@ -7,13 +7,30 @@ use App\Models\Student;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use DataTables;
 
 class StudentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $student = Student::with(['department', 'class', 'session', 'subject', 'user'])->get();
-        return view('admin/students/index', compact('student'));
+        if ($request->ajax()) {
+            $data = Student::with(['department', 'class', 'session', 'subject', 'user'])->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('session_name', function ($data) {
+                    return $data->session ? $data->session->name : '';
+                })
+                ->addColumn('class_name', function ($data) {
+                    return $data->class ? $data->class->name : '';
+                })
+                ->addColumn('name', function ($data) {
+                    return $data->user ? $data->user->name : '';
+                })
+                ->addColumn('department_name', function ($data) {
+                    return $data->department ? $data->department->name : '';
+                })->make(true);
+        }
+        return view('admin/students/index');
     }
     public function create()
     {
