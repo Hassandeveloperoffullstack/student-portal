@@ -9,7 +9,7 @@
             </h5>
         </div>
         <div class="card-body">
-            <table class="table table-bordered text-center" id="daterange_table">
+            <table class="table table-bordered text-center" id="class_table">
                 <thead>
                     <tr>
                         <th >#</th>

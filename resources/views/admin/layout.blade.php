@@ -38,7 +38,7 @@
 <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
 <script type="text/javascript">
     $(function() {
-        var table = $('#daterange_table').DataTable({
+        var table = $('#class_table').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
